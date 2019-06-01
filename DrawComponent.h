@@ -3,8 +3,7 @@
 
 class DrawComponent : public Component {
 public:
-	DrawComponent(ComponentEnum::Enum type, const char* filename) : Component(type)
-	{
+	DrawComponent(uint id, const char* filename) : Component(id) {
 		if (!m_texture.loadFromFile(filename)) {
 			printf("Failed to load texture %s", filename);
 			exit(1);
@@ -19,7 +18,6 @@ public:
 	sf::Sprite& getSprite() { return m_sprite; }
 
 private:
-	Entity* m_owner;
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 };

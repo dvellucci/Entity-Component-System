@@ -1,8 +1,9 @@
 #pragma once
 #include "Managers/EntityManager.h"
-#include "Systems/System.h"
 #include "Managers/ComponentManager.h"
+#include "Tracker.h"
 #include <memory>
+#include <type_traits>
 
 class EntityHandle;
 
@@ -12,13 +13,16 @@ public:
 	~World();
 
 	Entity* createEntity();
-	void destroyEntity();
+	void destroyEntity(Entity* e);
 
 	//attach specified component to given entity
-	template <typename ComponentType>
-	void attachComponent(Entity* e, ComponentType&& component) {
-		ComponentManager<ComponentType>* manager = getComponentManager<ComponentType>();
-		manager->addComponent(e, &component);
+	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
+	ComponentType* attachComponent(Entity* e, ComponentType&& component) {
+		//add component to manager
+		ComponentType* newComponent = getComponentManager<ComponentType>()->addComponent(e, &component);
+		//store component pointer in entity
+		e->addComponent(reinterpret_cast<Component*>(&newComponent));
+		return newComponent;
 	}
 
 	//get component manager for specified type
@@ -31,5 +35,5 @@ public:
 private:
 	std::unique_ptr<EntityManager> m_entityManager;
 	std::unordered_map<std::type_index, BaseComponentManager*> m_componentManagers;
-	std::vector<std::unique_ptr<System>> m_systems;
 };
+

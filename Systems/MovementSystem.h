@@ -2,14 +2,13 @@
 #include "../Managers/EntityManager.h"
 #include "System.h"
 
-class RenderSystem : public System {
+class MovementSystem : public System {
 public:
-	RenderSystem(World* world);
-	~RenderSystem();
+	MovementSystem(World* world);
+	~MovementSystem();
 
 	virtual void update(sf::Time time);
 	virtual void draw(sf::RenderWindow& window);
-
 private:
-	EntityManager* m_manager;
+
 };

@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Managers\EntityManager.cpp" />
+    <ClCompile Include="Systems\MovementSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -141,12 +142,13 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityHandle.h" />
     <ClInclude Include="Managers\ComponentManager.h" />
     <ClInclude Include="MotionComponent.h" />
     <ClInclude Include="Managers\EntityManager.h" />
+    <ClInclude Include="Systems\MovementSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />
     <ClInclude Include="Systems\System.h" />
+    <ClInclude Include="Tracker.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

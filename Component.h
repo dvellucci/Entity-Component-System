@@ -1,22 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <map>
+#include "Entity.h"
 
-class Entity;
-
-namespace ComponentEnum {
-	enum Enum {
-		DRAW,
-		COLLISION,
-		VELOCITY,
-		PHYSICS,
-		TRANSFORM
-	};
-}
+typedef unsigned int uint;
 
 class Component {
 public:
-	Component(ComponentEnum::Enum type) : m_type(type) {
+	Component(uint id) : m_id(id), m_isActive(true) {
 
 	}
 
@@ -24,10 +14,11 @@ public:
 
 	}
 
-	Entity* getOwner() { return m_owner; }
-	int getType() { return m_type; }
+	void setActive(bool active) { m_isActive = active; }
+	uint getId() { return m_id; }
+	bool getIsActive() { return m_isActive; }
 
 private:
-	Entity* m_owner;
-	ComponentEnum::Enum m_type;
+	uint m_id;
+	bool m_isActive;
 };

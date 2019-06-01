@@ -4,6 +4,7 @@
 #include <vector>
 #include <typeindex>
 #include <unordered_map>
+#include <stack>
 
 typedef unsigned int uint;
 
@@ -18,17 +19,15 @@ public:
 	Entity* createEntity();
 	void deleteEntity(Entity* e);
 
-	template <typename ComponentType>
-	void attachComponent(Entity* e, ComponentType* component) {
+	std::unordered_map<uint, Entity*>& getEntityMap() { return m_entityMap; }
 
-	}
-
-	std::map<uint, Entity*>& getEntityMap() { return m_entityMap; }
-	void removeInActiveEntities();	
+	Entity* getEntity(uint id) { return m_entityMap[id]; }
 
 private:
-	std::map<uint, Entity*> m_entityMap;
-	std::map<Entity*, std::vector<Component*>> entityMap;
+	std::unordered_map<uint, Entity*> m_entityMap;
+
+	//reuse ids of deleted entities
+	std::stack<uint> m_availableIds;
 
 	int m_entityId = 0;
 };

@@ -1,10 +1,11 @@
 #pragma once
-#include "Component.h"
+#include "TransformComponent.h"
+
 
 class MotionComponent : public Component {
 public:
-	MotionComponent(ComponentEnum::Enum type, int velocity) : 
-					Component(type), m_velocity(velocity) {
+	MotionComponent(uint id, float velocity, int acceleration) : Component(id),
+		m_velocity(velocity), m_acceleration(acceleration) {
 
 	}
 
@@ -12,9 +13,12 @@ public:
 
 	}
 
-	int getVelocity() { return m_velocity; }
-
+	TransformComponent* getTransform() { return m_transform; }
+	float getVelocity() { return m_velocity; }
+	int getAcceleration() { return m_acceleration; }
 
 private:
-	int m_velocity;
+	float m_velocity;
+	int m_acceleration;
+	TransformComponent* m_transform;
 };

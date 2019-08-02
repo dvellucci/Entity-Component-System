@@ -3,7 +3,7 @@
 
 class DrawComponent : public Component {
 public:
-	DrawComponent(uint id, const char* filename) : Component(id) {
+	DrawComponent(Entity* owner, const char* filename) : Component(owner) {
 		if (!m_texture.loadFromFile(filename)) {
 			printf("Failed to load texture %s", filename);
 			exit(1);

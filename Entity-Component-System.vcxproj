@@ -132,9 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Managers\EntityManager.cpp" />
+    <ClCompile Include="Platformer Test\Game.cpp" />
+    <ClCompile Include="Platformer Test\LevelLoader.cpp" />
+    <ClCompile Include="Platformer Test\main.cpp" />
+    <ClCompile Include="Platformer Test\Player.cpp" />
+    <ClCompile Include="Platformer Test\Tile.cpp" />
+    <ClCompile Include="Platformer Test\tinyxml2.cpp" />
     <ClCompile Include="Systems\MovementSystem.cpp" />
+    <ClCompile Include="Systems\PlayerSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -142,13 +148,23 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Managers\ComponentManager.h" />
     <ClInclude Include="MotionComponent.h" />
     <ClInclude Include="Managers\EntityManager.h" />
+    <ClInclude Include="Platformer Test\Game.h" />
+    <ClInclude Include="Platformer Test\GameState.h" />
+    <ClInclude Include="Platformer Test\GameStateMachine.h" />
+    <ClInclude Include="Platformer Test\Level.h" />
+    <ClInclude Include="Platformer Test\LevelLoader.h" />
+    <ClInclude Include="Platformer Test\Player.h" />
+    <ClInclude Include="Platformer Test\Tile.h" />
+    <ClInclude Include="Platformer Test\TileLayer.h" />
+    <ClInclude Include="Platformer Test\tinyxml2.h" />
     <ClInclude Include="Systems\MovementSystem.h" />
+    <ClInclude Include="Systems\PlayerSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />
     <ClInclude Include="Systems\System.h" />
-    <ClInclude Include="Tracker.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

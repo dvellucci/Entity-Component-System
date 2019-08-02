@@ -2,6 +2,7 @@
 #include "../DrawComponent.h"
 #include "../TransformComponent.h"
 #include "../MotionComponent.h"
+#include "../InputComponent.h"
 #include <unordered_map>
 
 //base class so component managers can be stored in a container
@@ -25,6 +26,8 @@ public:
 
 	ComponentType* addComponent(Entity* e, ComponentType* component) {
 		m_components.push_back(*component);
+		auto* newTemp = component;
+		e->m_componentMap.emplace(typeid(ComponentType), newTemp);
 		return component;
 	}
 

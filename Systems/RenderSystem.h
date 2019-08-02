@@ -1,5 +1,4 @@
 #pragma once
-#include "../Managers/EntityManager.h"
 #include "System.h"
 
 class RenderSystem : public System {
@@ -11,5 +10,5 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 
 private:
-	EntityManager* m_manager;
+
 };

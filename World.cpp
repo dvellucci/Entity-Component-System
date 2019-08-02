@@ -7,12 +7,13 @@ World::World() {
 	m_componentManagers.emplace(typeid(DrawComponent), new ComponentManager<DrawComponent>());
 	m_componentManagers.emplace(typeid(TransformComponent), new ComponentManager<TransformComponent>());
 	m_componentManagers.emplace(typeid(MotionComponent), new ComponentManager<MotionComponent>());
+	m_componentManagers.emplace(typeid(InputComponent), new ComponentManager<InputComponent>());
 
 	//register the systems
 
 }
 
-World::~World(){
+World::~World() {
 
 }
 

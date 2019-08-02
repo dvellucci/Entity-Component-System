@@ -5,10 +5,10 @@
 #include <typeindex>
 #include <unordered_map>
 #include <stack>
+#include <iostream>
 
 typedef unsigned int uint;
 
-//forward declare EntityHandle to define createEntity function
 class EntityHandle;
 
 class EntityManager {
@@ -17,9 +17,9 @@ public:
 	~EntityManager();
 
 	Entity* createEntity();
-	void deleteEntity(Entity* e);
+	void deleteEntity(Entity*& e);
 
-	std::unordered_map<uint, Entity*>& getEntityMap() { return m_entityMap; }
+	std::unordered_map<uint, Entity*>& getEntityMap() {   }
 
 	Entity* getEntity(uint id) { return m_entityMap[id]; }
 

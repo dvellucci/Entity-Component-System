@@ -1,6 +1,7 @@
 #include "MovementSystem.h"
 #include <iostream>
 MovementSystem::MovementSystem(World* world) : System(world) {
+
 }
 
 MovementSystem::~MovementSystem() {
@@ -8,25 +9,29 @@ MovementSystem::~MovementSystem() {
 
 void MovementSystem::update(sf::Time time)
 {
-	auto& transformComponents = m_world->getComponentManager<TransformComponent>()->getComponents();
 	auto& motionComponents = m_world->getComponentManager<MotionComponent>()->getComponents();
+	auto& transformComponents = m_world->getComponentManager<TransformComponent>()->getComponents();
 
 	for (auto& motionComponent : motionComponents) {
-		auto velocity = motionComponent.getVelocity();
-		TransformComponent* temp = motionComponent.getTransform();
+		auto entity = motionComponent.getOwner();
+		auto* motion = (MotionComponent*)entity->m_componentMap[typeid(MotionComponent)];
+		motion->setActive(false);
 
 		for (auto& transformComponent : transformComponents) {
-			if(transformComponent.getId() == motionComponent.getId()) 
-				if(motionComponent.getIsActive())
-					transformComponent.getSprite().move(sf::Vector2f(0.4f * time.asMilliseconds(), 0));
-		}
-	}
+			if (transformComponent.getOwner() == motionComponent.getOwner())
+				if (motionComponent.getIsActive()) {
+					transformComponent.getSprite().move(motionComponent.getNewPosition());
+				}		
+		} 
 
-	/*for (auto& motionComponent : motionComponents) {
-		auto velocity = motionComponent.getVelocity();
-		TransformComponent* temp = motionComponent.getTransform();
-		temp->getSprite().move(sf::Vector2f(1.0f * time.asMilliseconds(), 0));
-	}*/
+		//WANT TO DO THIS
+		//auto entity = motionComponent.getOwner();
+		//auto transformComponent = entity->m_componentMap[typeid(TransformComponent)].;
+		//if (transformComponent->getIsActive() && motionComponent.getIsActive())
+		//{
+			//transformComponent->getSprite().move(motionComponent.getNewPosition());
+		//} 
+	}
 }
 
 void MovementSystem::draw(sf::RenderWindow& window)

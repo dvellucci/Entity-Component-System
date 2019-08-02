@@ -4,9 +4,12 @@
 
 typedef unsigned int uint;
 
+class Entity; 
+
 class Component {
 public:
-	Component(uint id) : m_id(id), m_isActive(true) {
+	Component() = default;
+	Component(Entity* owner) : m_isActive(true), m_owner(owner) {
 
 	}
 
@@ -15,10 +18,11 @@ public:
 	}
 
 	void setActive(bool active) { m_isActive = active; }
-	uint getId() { return m_id; }
-	bool getIsActive() { return m_isActive; }
+
+	inline bool getIsActive() { return m_isActive; }
+	inline Entity* getOwner() { return m_owner; }
 
 private:
-	uint m_id;
 	bool m_isActive;
+	Entity* m_owner;
 };

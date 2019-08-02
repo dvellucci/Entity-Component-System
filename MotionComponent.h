@@ -4,8 +4,8 @@
 
 class MotionComponent : public Component {
 public:
-	MotionComponent(uint id, float velocity, int acceleration) : Component(id),
-		m_velocity(velocity), m_acceleration(acceleration) {
+	MotionComponent(Entity* owner, float velocity, float jumpVelocity, float acceleration) : Component(owner),
+		m_velocity(velocity), m_jumpVelocity(jumpVelocity), m_acceleration(acceleration) {
 
 	}
 
@@ -13,12 +13,20 @@ public:
 
 	}
 
-	TransformComponent* getTransform() { return m_transform; }
-	float getVelocity() { return m_velocity; }
-	int getAcceleration() { return m_acceleration; }
+	inline void setNewPosition(sf::Vector2f newPosition) {
+		m_newPosition = newPosition;
+	}
+
+	inline sf::Vector2f& getNewPosition() { return m_newPosition; }
+	inline float getVelocity() { return m_velocity; }
+	inline float getJumpVelocity() { return m_jumpVelocity; }
+
+	float getAcceleration() { return m_acceleration; }
 
 private:
+	sf::Vector2f m_newPosition;
+
 	float m_velocity;
-	int m_acceleration;
-	TransformComponent* m_transform;
+	float m_jumpVelocity;
+	float m_acceleration;
 };

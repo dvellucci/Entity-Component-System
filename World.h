@@ -1,8 +1,8 @@
 #pragma once
 #include "Managers/EntityManager.h"
 #include "Managers/ComponentManager.h"
-#include "Tracker.h"
 #include <memory>
+#include <cassert>
 #include <type_traits>
 
 class EntityHandle;
@@ -20,8 +20,9 @@ public:
 	ComponentType* attachComponent(Entity* e, ComponentType&& component) {
 		//add component to manager
 		ComponentType* newComponent = getComponentManager<ComponentType>()->addComponent(e, &component);
-		//store component pointer in entity
-		e->addComponent(reinterpret_cast<Component*>(&newComponent));
+		//e->getComponentMap().emplace(typeid(ComponentType), newComponent);
+		//e->m_componentMap.emplace(typeid(ComponentType), &component);
+		//e->addComponent(component, newComponent);
 		return newComponent;
 	}
 
@@ -29,6 +30,10 @@ public:
 	template <typename ComponentType>
 	ComponentManager<ComponentType>* getComponentManager() {
 		auto found = m_componentManagers.find(typeid(ComponentType));
+		if (found == m_componentManagers.end()) {
+			assert("This is no component manager for this component type.");
+			return nullptr;
+		}
 		return dynamic_cast<ComponentManager<ComponentType>*>(found->second);
 	}
 

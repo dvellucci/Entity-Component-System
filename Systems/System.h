@@ -3,7 +3,8 @@
 #include "../World.h"
 #include <SFML/Graphics.hpp>
 
-class System {
+class System 
+{
 public:
 	System(World* world) : m_world(world) {
 	}

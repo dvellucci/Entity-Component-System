@@ -7,6 +7,8 @@
 
 class EntityHandle;
 
+using namespace std;
+
 class World {
 public:
 	World();
@@ -15,16 +17,14 @@ public:
 	Entity* createEntity();
 	void destroyEntity(Entity* e);
 
-	//attach specified component to given entity
 	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
-	ComponentType* attachComponent(Entity* e, ComponentType&& component) {
+	void attachComponent(Entity* e, std::shared_ptr<ComponentType> component) {
 		//add component to manager
-		ComponentType* newComponent = getComponentManager<ComponentType>()->addComponent(e, &component);
-		//e->getComponentMap().emplace(typeid(ComponentType), newComponent);
-		//e->m_componentMap.emplace(typeid(ComponentType), &component);
-		//e->addComponent(component, newComponent);
-		return newComponent;
+		getComponentManager<ComponentType>()->addComponent(component);
+		const char* typeName = typeid(ComponentType).name();
+		e->m_componentMap.emplace(typeName, component);
 	}
+
 
 	//get component manager for specified type
 	template <typename ComponentType>

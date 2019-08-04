@@ -12,7 +12,7 @@ Game::Game() : m_window(nullptr)
 	//initialize game systems
 	m_renderSystem = new RenderSystem(&m_world);
 	m_motionSystem = new MovementSystem(&m_world);
-	m_playerSystem = new PlayerSystem(&m_world, m_window);
+	m_playerSystem = new PlayerSystem(&m_world, m_event);
 
 	m_level = std::make_shared<Level>(m_levels[m_levelIndex]);
 	m_levelLoader = std::make_shared<LevelLoader>();
@@ -37,9 +37,9 @@ void Game::start()
 
 	//create the player
 	Entity* player = m_world.createEntity();
-	m_world.attachComponent(player, TransformComponent(player, 50, 200, "Platformer Test/Assets/mario.png"));
-	m_world.attachComponent(player, MotionComponent(player, 0.15f, 0.1f, 0.0f));
-	m_world.attachComponent(player, InputComponent(player));
+	m_world.attachComponent(player, make_shared<TransformComponent>(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
+	m_world.attachComponent(player, make_shared<MotionComponent>(player, 0.15f, 0.1f, 0.0f));
+	m_world.attachComponent(player, make_shared<InputComponent>(player));
 
 	//run the main game loop
 	gameLoop();
@@ -59,10 +59,9 @@ void Game::gameLoop()
 			if (event.type == sf::Event::Closed)
 				m_window->close();
 
+			//process player input/information
+			m_playerSystem->update(time);
 		}
-
-		//process player input/information
-		m_playerSystem->update(time);
 
 		m_motionSystem->update(time);
 		clock.restart().asMilliseconds();

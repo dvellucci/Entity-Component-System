@@ -66,8 +66,8 @@ bool LevelLoader::loadLevel(std::shared_ptr<Level> level)
 		std::string layerName = layerElement->Attribute("name");
 
 		XMLElement* tileElement = layerData->FirstChildElement("tile");
-		int x = 0;
-		int y = 0;
+		float x = 0;
+		float y = 0;
 
 		while (tileElement) {
 			auto tileAttribute = tileElement->Attribute("gid");

@@ -9,28 +9,16 @@ MovementSystem::~MovementSystem() {
 
 void MovementSystem::update(sf::Time time)
 {
-	auto& motionComponents = m_world->getComponentManager<MotionComponent>()->getComponents();
-	auto& transformComponents = m_world->getComponentManager<TransformComponent>()->getComponents();
+	auto motionComponents = m_world->getComponentManager<MotionComponent>()->getComponentsList();
 
-	for (auto& motionComponent : motionComponents) {
-		auto entity = motionComponent.getOwner();
-		auto* motion = (MotionComponent*)entity->m_componentMap[typeid(MotionComponent)];
-		motion->setActive(false);
-
-		for (auto& transformComponent : transformComponents) {
-			if (transformComponent.getOwner() == motionComponent.getOwner())
-				if (motionComponent.getIsActive()) {
-					transformComponent.getSprite().move(motionComponent.getNewPosition());
-				}		
-		} 
-
-		//WANT TO DO THIS
-		//auto entity = motionComponent.getOwner();
-		//auto transformComponent = entity->m_componentMap[typeid(TransformComponent)].;
-		//if (transformComponent->getIsActive() && motionComponent.getIsActive())
-		//{
-			//transformComponent->getSprite().move(motionComponent.getNewPosition());
-		//} 
+	for (auto motion : motionComponents)
+	{
+		auto entity = motion->getOwner();
+		auto transform = entity->getComponent<TransformComponent>();
+		if (motion->getIsActive())
+		{
+			transform->getSprite().move(motion->getNewPosition());
+		}
 	}
 }
 

@@ -29,10 +29,11 @@ Entity* EntityManager::createEntity()
 
 void EntityManager::deleteEntity(Entity*& e) {
 	//set the entity's components to false so they don't get processed
-	for (auto component : e->getComponents()) {
-		component->setActive(false);
+	for (auto component : e->getComponents()) 
+	{
+		component.second->setActive(false);
 	}
-
+	  
 	//remove the entity from the map and delete it
 	m_entityMap.erase(e->getId());
 	delete e;

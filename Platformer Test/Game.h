@@ -20,6 +20,7 @@ public:
 
 private:
 	World m_world;
+	sf::Event m_event;
 
 	//game systems
 	System* m_renderSystem;

@@ -4,6 +4,8 @@
 #include "../MotionComponent.h"
 #include "../InputComponent.h"
 #include <unordered_map>
+#include <list>
+#include <deque>
 
 //base class so component managers can be stored in a container
 class BaseComponentManager {
@@ -22,21 +24,25 @@ public:
 	using LookupType = ComponentType;
 
 	ComponentManager() {}
-	~ComponentManager() {}
+	~ComponentManager() {
 
-	ComponentType* addComponent(Entity* e, ComponentType* component) {
-		m_components.push_back(*component);
-		auto* newTemp = component;
-		e->m_componentMap.emplace(typeid(ComponentType), newTemp);
-		return component;
 	}
 
-	template <typename ComponentType>
-	ComponentType getComponentType(ComponentType component) {
-		
+	void addComponent(std::shared_ptr<ComponentType> component) {
+		m_componentsList.push_back(component);
 	}
 
-	std::vector<ComponentType>& getComponents() { return m_components; }
+	std::list<std::shared_ptr<ComponentType>>& getComponentsList() { return m_componentsList; }
 private:
-	std::vector<ComponentType> m_components;
+	std::list<std::shared_ptr<ComponentType>> m_componentsList;
 };
+
+/*
+Using list of pointers for faster insertion/deletion. 
+Allows me to have other pointers to the components in a map.
+Slower iteration.
+
+Vector of objects will have fastest iteration, slow insertion/deletion.
+
+Considering using a deque
+*/

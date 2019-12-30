@@ -17,6 +17,7 @@ public:
 	~EntityManager();
 
 	Entity* createEntity();
+
 	void deleteEntity(Entity*& e);
 
 	std::unordered_map<uint, Entity*>& getEntityMap() {   }

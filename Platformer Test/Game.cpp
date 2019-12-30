@@ -9,13 +9,13 @@ Game::Game() : m_window(nullptr)
 	m_window->create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Test Platformer", sf::Style::Titlebar | sf::Style::Close);
 	m_window->setFramerateLimit(60);
 
+	m_level = std::make_shared<Level>(m_levels[m_levelIndex]);
+	m_levelLoader = std::make_shared<LevelLoader>();
+
 	//initialize game systems
 	m_renderSystem = new RenderSystem(&m_world);
 	m_motionSystem = new MovementSystem(&m_world);
-	m_playerSystem = new PlayerSystem(&m_world, m_event);
-
-	m_level = std::make_shared<Level>(m_levels[m_levelIndex]);
-	m_levelLoader = std::make_shared<LevelLoader>();
+	m_playerSystem = new PlayerSystem(&m_world, m_level);
 }
 
 Game::~Game()
@@ -29,7 +29,7 @@ Game::~Game()
 void Game::start()
 {
 	//set the camera
-	m_view.reset(sf::FloatRect(0.f, 0.f, 415.f, 315.f));
+	m_view.reset(sf::FloatRect(0.f, 0.f, 418.f, 320.f));
 
 	//load the level
 	if (!m_levelLoader->loadLevel(m_level))
@@ -40,7 +40,8 @@ void Game::start()
 	m_world.attachComponent(player, make_shared<TransformComponent>(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
 	m_world.attachComponent(player, make_shared<MotionComponent>(player, 0.15f, 0.1f, 0.0f));
 	m_world.attachComponent(player, make_shared<InputComponent>(player));
-
+	m_world.attachComponent(player, make_shared<CollisionComponent>(player, sf::Rect<int>{0, 0, 16, 32}));
+	
 	//run the main game loop
 	gameLoop();
 }
@@ -58,11 +59,12 @@ void Game::gameLoop()
 		{
 			if (event.type == sf::Event::Closed)
 				m_window->close();
-
-			//process player input/information
-			m_playerSystem->update(time);
 		}
 
+		//process player input/information
+		m_playerSystem->update(time);
+
+		//move objects that need to be moved
 		m_motionSystem->update(time);
 		clock.restart().asMilliseconds();
 
@@ -71,15 +73,10 @@ void Game::gameLoop()
 		//render the scene
 		m_window->clear(sf::Color(4, 156, 216, 255));
 
-		for (auto tile : m_level->getBackgroundLayer().getTiles())
-			m_window->draw(tile->getSprite());
+		//draw the tile map
+		m_level->drawLevel(m_window);
 
-		for (auto tile : m_level->getWallLayer().getTiles())
-			m_window->draw(tile->getSprite());
-
-		for (auto tile : m_level->getHazardsLayer().getTiles())
-			m_window->draw(tile->getSprite());
-
+		//draw objects that need to be drawn
 		m_renderSystem->draw(*m_window);
 		m_window->display();
 	}

@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../TransformComponent.h"
+#include "FallingState.h"
+#include "JumpingState.h"
 
 class PlayerState
 {

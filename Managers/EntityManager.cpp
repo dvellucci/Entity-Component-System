@@ -34,6 +34,9 @@ void EntityManager::deleteEntity(Entity*& e) {
 		component.second->setActive(false);
 	}
 	  
+	//add the entities id to the stack of available ids
+	m_availableIds.push(e->getId());
+
 	//remove the entity from the map and delete it
 	m_entityMap.erase(e->getId());
 	delete e;

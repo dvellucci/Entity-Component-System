@@ -18,6 +18,10 @@ public:
 
 private:
 	sf::Sprite m_sprite;
-	 
+
 	//PlayerState* m_state
+
+	//enum Player_Sprite { small_idle = 0, small_walk = 1, small_jump = 2, etc...}
+	//std::vector<sf::Rect<int>> = { ..... }
+
 };

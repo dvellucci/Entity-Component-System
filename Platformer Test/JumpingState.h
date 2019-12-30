@@ -4,7 +4,7 @@
 class JumpingState : public PlayerState
 {
 public:
-	JumpingState();
+	JumpingState() : PlayerState() {}
 	~JumpingState();
 
 	virtual PlayerState* handleInput(sf::Keyboard::Key key);

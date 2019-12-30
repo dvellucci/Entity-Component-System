@@ -3,7 +3,6 @@
 #include "Managers/ComponentManager.h"
 #include <memory>
 #include <cassert>
-#include <type_traits>
 
 class EntityHandle;
 
@@ -17,9 +16,9 @@ public:
 	Entity* createEntity();
 	void destroyEntity(Entity* e);
 
+	//attach a component of a specified type to an entity
 	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
 	void attachComponent(Entity* e, std::shared_ptr<ComponentType> component) {
-		//add component to manager
 		getComponentManager<ComponentType>()->addComponent(component);
 		const char* typeName = typeid(ComponentType).name();
 		e->m_componentMap.emplace(typeName, component);

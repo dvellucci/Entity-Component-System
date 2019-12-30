@@ -133,7 +133,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Managers\EntityManager.cpp" />
-    <ClCompile Include="Platformer Test\FallingState.cpp" />
     <ClCompile Include="Platformer Test\Game.cpp" />
     <ClCompile Include="Platformer Test\LevelLoader.cpp" />
     <ClCompile Include="Platformer Test\main.cpp" />
@@ -146,18 +145,17 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="DrawComponent.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\DrawComponent.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="Components\CollisionComponent.h" />
+    <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Managers\ComponentManager.h" />
-    <ClInclude Include="MotionComponent.h" />
+    <ClInclude Include="Components\MotionComponent.h" />
     <ClInclude Include="Managers\EntityManager.h" />
-    <ClInclude Include="Platformer Test\FallingState.h" />
     <ClInclude Include="Platformer Test\Game.h" />
     <ClInclude Include="Platformer Test\GameState.h" />
     <ClInclude Include="Platformer Test\GameStateMachine.h" />
-    <ClInclude Include="Platformer Test\PlayerState.h" />
     <ClInclude Include="Platformer Test\Level.h" />
     <ClInclude Include="Platformer Test\LevelLoader.h" />
     <ClInclude Include="Platformer Test\Player.h" />
@@ -168,7 +166,7 @@
     <ClInclude Include="Systems\PlayerSystem.h" />
     <ClInclude Include="Systems\RenderSystem.h" />
     <ClInclude Include="Systems\System.h" />
-    <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,9 +15,14 @@ void MovementSystem::update(sf::Time time)
 	{
 		auto entity = motion->getOwner();
 		auto transform = entity->getComponent<TransformComponent>();
+		auto collision = entity->getComponent<CollisionComponent>();
 		if (motion->getIsActive())
 		{
-			transform->getSprite().move(motion->getNewPosition());
+			transform->getSprite().move(transform->getPosition());
+
+			//update the collision box of the object when it moves
+			if (collision)
+				collision->setRectBox(transform->getSprite().getGlobalBounds());
 		}
 	}
 }

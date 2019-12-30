@@ -3,7 +3,6 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/PlayerSystem.h"
-#include "../InputComponent.h"
 #include "LevelLoader.h"
 
 constexpr auto SCREEN_WIDTH = 1600;

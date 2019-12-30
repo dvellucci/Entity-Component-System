@@ -1,13 +1,14 @@
 #pragma once
-#include "../DrawComponent.h"
-#include "../TransformComponent.h"
-#include "../MotionComponent.h"
-#include "../InputComponent.h"
+#include "../Components/DrawComponent.h"
+#include "../Components/TransformComponent.h"
+#include "../Components/MotionComponent.h"
+#include "../Components/InputComponent.h"
+#include "../Components/CollisionComponent.h"
 #include <unordered_map>
 #include <list>
 #include <deque>
 
-//base class so component managers can be stored in a container
+//base class so component managers so that ComponentManager can be instantiated as different types
 class BaseComponentManager {
 public:
 	BaseComponentManager() = default;
@@ -24,25 +25,13 @@ public:
 	using LookupType = ComponentType;
 
 	ComponentManager() {}
-	~ComponentManager() {
-
-	}
+	~ComponentManager() {}
 
 	void addComponent(std::shared_ptr<ComponentType> component) {
 		m_componentsList.push_back(component);
 	}
 
-	std::list<std::shared_ptr<ComponentType>>& getComponentsList() { return m_componentsList; }
+	std::vector<std::shared_ptr<ComponentType>>& getComponentsList() { return m_componentsList; }
 private:
-	std::list<std::shared_ptr<ComponentType>> m_componentsList;
+	std::vector<std::shared_ptr<ComponentType>> m_componentsList;
 };
-
-/*
-Using list of pointers for faster insertion/deletion. 
-Allows me to have other pointers to the components in a map.
-Slower iteration.
-
-Vector of objects will have fastest iteration, slow insertion/deletion.
-
-Considering using a deque
-*/

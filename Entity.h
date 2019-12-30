@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "Components/Component.h"
 #include <vector>
 #include <memory>
 #include <cassert>
@@ -15,24 +15,14 @@ class Entity {
 public:
 	Entity() = default;
 	Entity(int id) : m_id(id), m_isActive(true) { }
-	virtual ~Entity() {}
-
-	void setActive(bool isActive) 
-	{ 
-		//m_isActive = isActive; 
-		//for (auto& component : m_components) 
-		//{
-		//	component->setActive(isActive);
-		//}
-	}
+	~Entity() {}
 
 	int getId() { return m_id; }
 	inline bool getIsActive() { return m_isActive; }
 
-
 	std::unordered_map<const char*, std::shared_ptr<Component>> getComponents() { return m_componentMap; }
 
-	//get the specific component of an entity
+	//get the specific component type of an entity
 	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
 	inline ComponentType* getComponent()
 	{
@@ -46,4 +36,3 @@ private:
 	int m_id;
 	bool m_isActive;
 };
-

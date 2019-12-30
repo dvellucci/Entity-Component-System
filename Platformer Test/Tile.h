@@ -17,8 +17,11 @@ public:
 	Tile(sf::Texture& tex, sf::Rect<int>& rect, TileType type, float x, float y);
 	~Tile();
 
+	float getXPos() { return m_xPos; }
+	float getYPos() { return m_yPos; }
 	sf::Sprite& getSprite() { return m_sprite; }
 	sf::Rect<int>& getRect() { return m_rect; }
+	inline TileType getType() { return m_tileType; }
 
 private:
 	sf::Texture m_texture;

@@ -77,14 +77,22 @@ bool LevelLoader::loadLevel(std::shared_ptr<Level> level)
 
 				if (rectToUse >= 0) {
 					if (layerName == "Background") {
-						level->getBackgroundLayer().getTiles().push_back(std::make_shared<Tile>(m_tilesetImage, subRects[rectToUse], TileType::Background, x, y));
+						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Background, x, y);
+						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
 					}
 					else if (layerName == "Walls") {
-						level->getWallLayer().getTiles().push_back(std::make_shared<Tile>(m_tilesetImage, subRects[rectToUse], TileType::Wall, x, y));
+						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Wall, x, y);
+						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
 					}
 					else if (layerName == "Hazard") {
-						level->getHazardsLayer().getTiles().push_back(std::make_shared<Tile>(m_tilesetImage, subRects[rectToUse], TileType::Hazard, x, y));
+						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Hazard, x, y);
+						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
 					}
+				}
+				else
+				{
+					std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[0], TileType::Default, x, y);
+					level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
 				}
 			}
 

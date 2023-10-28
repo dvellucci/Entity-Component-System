@@ -24,6 +24,12 @@ public:
 		e->m_componentMap.emplace(typeName, component);
 	}
 
+	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
+	void attachComponent2(Entity* e, ComponentType* component) 
+	{
+		const char* typeName = typeid(ComponentType).name();
+		m_componentManager->m_componentArrays[typeName].push_back(component);
+	}
 
 	//get component manager for specified type
 	template <typename ComponentType>
@@ -39,5 +45,7 @@ public:
 private:
 	std::unique_ptr<EntityManager> m_entityManager;
 	std::unordered_map<std::type_index, BaseComponentManager*> m_componentManagers;
+
+	std::unique_ptr<AComponentManager> m_componentManager;
 };
 

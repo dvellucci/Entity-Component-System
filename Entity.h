@@ -31,7 +31,7 @@ public:
 	}
 
 	std::unordered_map<const char*, std::shared_ptr<Component>> m_componentMap;
-
+	std::vector<std::shared_ptr<Component>> m_components;
 private:
 	int m_id;
 	bool m_isActive;

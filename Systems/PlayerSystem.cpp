@@ -45,17 +45,12 @@ void PlayerSystem::update(sf::Time time)
 			int top_tile = collisionBox->getRectBox().top / m_level->getTileHeight();
 			int bottom_tile = (collisionBox->getRectBox().top + collisionBox->getRectBox().height) / m_level->getTileHeight();
 
-			if (left_tile < 0) left_tile = 0;
-			if (right_tile > m_level->getTileWidth()) right_tile = m_level->getTileWidth();
-			if (top_tile < 0) top_tile = 0;
-			if (bottom_tile > m_level->getTileHeight()) bottom_tile = m_level->getTileHeight();
-
 			for (int i = left_tile; i <= right_tile; i++)
 			{
 				for (int j = top_tile; j <= bottom_tile; j++)
 				{
-					int x = i * m_level->getTileWidth();
-					int y = j * m_level->getTileHeight();
+					int x = i;
+					int y = j;
 
 					std::shared_ptr<Tile> tile = m_level->getTileMap()[sf::Vector2f((int)x, (int)y)];
 
@@ -66,7 +61,9 @@ void PlayerSystem::update(sf::Time time)
 							//collision
 							if (collisionBox->getRectBox().intersects(tile->getSprite().getGlobalBounds()))
 							{
-								std::cout << "asda" << std::endl;
+								std::cout << tile->getRect().left << std::endl;
+								std::cout << tile->getRect().top << std::endl;
+								
 							}
 						}
 					}

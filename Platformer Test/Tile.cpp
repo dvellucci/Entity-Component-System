@@ -9,12 +9,6 @@ Tile::Tile(sf::Texture& tex, sf::Rect<int>& rect, TileType type, float x, float 
 	m_xPos *= WIDTH;
 	m_yPos *= HEIGHT;
 	m_sprite.setPosition(m_xPos, m_yPos);
-	
-
-	m_rect.left = m_sprite.getPosition().x;
-	m_rect.top = m_sprite.getPosition().y;
-	m_rect.width = m_sprite.getTextureRect().width;
-	m_rect.height = m_sprite.getTextureRect().height;
 }
 
 Tile::~Tile() {

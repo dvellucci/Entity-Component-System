@@ -78,15 +78,15 @@ bool LevelLoader::loadLevel(std::shared_ptr<Level> level)
 				if (rectToUse >= 0) {
 					if (layerName == "Background") {
 						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Background, x, y);
-						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
+						level->getTileMap().emplace(sf::Vector2f(x, y), tile);
 					}
 					else if (layerName == "Walls") {
 						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Wall, x, y);
-						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
+						level->getTileMap().emplace(sf::Vector2f(x, y), tile);
 					}
 					else if (layerName == "Hazard") {
 						std::shared_ptr<Tile> tile = level->getBackgroundLayer().insertTile(m_tilesetImage, subRects[rectToUse], TileType::Hazard, x, y);
-						level->getTileMap().emplace(sf::Vector2f(tile->getXPos(), tile->getYPos()), tile);
+						level->getTileMap().emplace(sf::Vector2f(x, y), tile);
 					}
 				}
 				else

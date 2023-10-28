@@ -2,12 +2,19 @@
 
 World::World() {
 	m_entityManager = std::make_unique<EntityManager>();
+	m_componentManager = std::make_unique<AComponentManager>();
 
 	m_componentManagers.emplace(typeid(DrawComponent), new ComponentManager<DrawComponent>());
 	m_componentManagers.emplace(typeid(TransformComponent), new ComponentManager<TransformComponent>());
 	m_componentManagers.emplace(typeid(MotionComponent), new ComponentManager<MotionComponent>());
 	m_componentManagers.emplace(typeid(InputComponent), new ComponentManager<InputComponent>());
 	m_componentManagers.emplace(typeid(CollisionComponent), new ComponentManager<CollisionComponent>());
+
+	m_componentManager->RegisterComponent<DrawComponent>();
+	m_componentManager->RegisterComponent<TransformComponent>();
+	m_componentManager->RegisterComponent<MotionComponent>();
+	m_componentManager->RegisterComponent<InputComponent>();
+	m_componentManager->RegisterComponent<CollisionComponent>();
 }
 
 World::~World() {

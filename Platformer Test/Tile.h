@@ -20,13 +20,13 @@ public:
 	float getXPos() { return m_xPos; }
 	float getYPos() { return m_yPos; }
 	sf::Sprite& getSprite() { return m_sprite; }
-	sf::Rect<int>& getRect() { return m_rect; }
+	sf::Rect<float>& getRect() { return m_rect; }
 	inline TileType getType() { return m_tileType; }
 
 private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	sf::Rect<int> m_rect;
+	sf::Rect<float> m_rect;
 
 	float m_xPos, m_yPos;
 

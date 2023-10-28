@@ -15,6 +15,7 @@ public:
 
 	}
 
+	inline void setPosition(float x, float y) { m_sprite.setPosition(sf::Vector2f(x, y)); }
 	sf::Sprite& getSprite() { return m_sprite; }
 
 private:

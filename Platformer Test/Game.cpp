@@ -35,15 +35,17 @@ void Game::start()
 	if (!m_levelLoader->loadLevel(m_level))
 		assert("Level did not load properly");
 
-	//create the player
-	Entity* player = m_world.createEntity();
-	m_world.attachComponent(player, make_shared<TransformComponent>(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
-	m_world.attachComponent(player, make_shared<MotionComponent>(player, 0.15f, 0.1f, 0.0f));
-	m_world.attachComponent(player, make_shared<InputComponent>(player));
-	m_world.attachComponent(player, make_shared<CollisionComponent>(player, sf::Rect<int>{0, 0, 16, 32}));
+	EntityHandle handle = m_world.CreateEntity();
 
-	m_world.attachComponent2<TransformComponent>(player, new TransformComponent(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
-	m_world.attachComponent2<MotionComponent>(player, new MotionComponent(player, 0.15f, 0.1f, 0.0f));
+	//create the player
+	//Entity* player = m_world.createEntity();
+	//m_world.attachComponent(player, make_shared<TransformComponent>(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
+	//m_world.attachComponent(player, make_shared<MotionComponent>(player, 0.15f, 0.1f, 0.0f));
+	//m_world.attachComponent(player, make_shared<InputComponent>(player));
+	//m_world.attachComponent(player, make_shared<CollisionComponent>(player, sf::Rect<int>{0, 0, 16, 32}));
+
+	//m_world.attachComponent2<TransformComponent>(player, new TransformComponent(player, 50.0f, 200.0f, "Platformer Test/Assets/mario.png"));
+	//m_world.attachComponent2<MotionComponent>(player, new MotionComponent(player, 0.15f, 0.1f, 0.0f));
 	//run the main game loop
 	gameLoop();
 }

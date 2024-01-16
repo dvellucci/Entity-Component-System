@@ -12,6 +12,7 @@ public:
 	virtual ~System() {
 	}
 
+	virtual void init() = 0;
 	virtual void update(sf::Time time) = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 

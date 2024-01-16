@@ -8,6 +8,8 @@
 #include <list>
 #include <deque>
 
+using ComponentIndex = unsigned int;
+
 //base class so component managers so that ComponentManager can be instantiated as different types
 class BaseComponentManager {
 public:
@@ -19,51 +21,46 @@ public:
 	BaseComponentManager& operator=(BaseComponentManager&&) = default;
 };
 
+//Max number of entities and components per component array
+const unsigned int MAX_NUMBER_OF_COMPONENTS = 1024;
+
 template <typename ComponentType>
 class ComponentManager : public BaseComponentManager {
 public:
 	using LookupType = ComponentType;
 
-	ComponentManager() {}
+	ComponentManager() 
+	{ 
+		//Resize the vector to the max number of components to reserve the space
+		_components.reserve(MAX_NUMBER_OF_COMPONENTS);
+	}
 	~ComponentManager() {}
 
-	void addComponent(std::shared_ptr<ComponentType> component) {
-		m_componentsList.push_back(component);
+	/*
+	*   When we add a component, we add a component to the index that is equal to the entity id.
+	*	Right now, the data in the components array won't be densly packed. It would be better if they were for more efficient performance,
+	*	but I can refactor that at some point using a Component Mask and an std::map<Entity, ComponentIndex>
+	*/
+	void AddComponent(Entity* entity, std::unique_ptr<ComponentType>& component) {
+		//entityMap.add(entityId, component)
+		//when we add a component, we add a component to the index that is equal to the entity id
+		_components[entity->GetId()] = component;
+		//_entityComponentMap.emplace(entity->GetId(), )
 	}
 
-	std::vector<std::shared_ptr<ComponentType>>& getComponentsList() { return m_componentsList; }
+	void RemoveComponent(const int entityId)
+	{
+		_components.erase(entityId);
+	}
+
+	const std::vector<std::shared_ptr<ComponentType>>& getComponentsList() const { return _components; }
+
 private:
-	std::vector<std::shared_ptr<ComponentType>> m_componentsList;
+	std::vector<std::unique_ptr<ComponentType>> _components;
+	//Mapping of an entity (which is essentially and ID of type int) to an index of the component
+	std::map<Entity*, ComponentIndex> _entityComponentMap;
+	//entityMap<EntityId, Component>
 
 	std::unordered_map<std::type_index, std::vector<Component*>> m_componentArrays;
 };
 
-class AComponentManager
-{
-
-public:
-	AComponentManager() {}
-	~AComponentManager() {}
-
-	using LookupType = Component;
-
-	template <typename ComponentType>
-	void addComponent(std::shared_ptr<ComponentType> component)
-	{
-
-	}
-
-	template <typename ComponentType, typename = std::enable_if<std::is_base_of<Component, ComponentType>::value>>
-	void RegisterComponent()
-	{
-		const char* typeName = typeid(ComponentType).name();
-
-		assert(m_componentArrays.find(typeName) == m_componentArrays.end() && "Registering component type more than once.");
-
-		m_componentArrays.insert({ typeName, std::vector<Component*>() });
-	}
-
-	std::unordered_map<const char*, std::vector<Component*>> m_componentArrays;
-private:
-
-};

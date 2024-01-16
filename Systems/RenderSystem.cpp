@@ -13,13 +13,13 @@ void RenderSystem::update(sf::Time time) {
 }
 
 void RenderSystem::draw(sf::RenderWindow& window) {
-	auto transformComponents = m_world->getComponentManager<TransformComponent>()->getComponentsList();
+	//auto transformComponents = m_world->getComponentManager<TransformComponent>()->getComponentsList();
 
-	for (auto& component : transformComponents) {
+	//for (auto& component : transformComponents) {
 
-		if (component->getIsActive())
-		{
-		   window.draw(component->getSprite());
-		}	
-	} 
+	//	if (component->getIsActive())
+	//	{
+	//	   window.draw(component->getSprite());
+	//	}	
+	//} 
 }

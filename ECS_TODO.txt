@@ -1,0 +1,5 @@
+Todo for ECS:
+
+Have 1 component manager which holds a map mapping a component type to a component array.
+Make it so the transform component does not use a sprite. Will need to make sure the sprite's position follows the position of the transform.
+Have it so when an entity gets deleted, the components get deleted as well. 
